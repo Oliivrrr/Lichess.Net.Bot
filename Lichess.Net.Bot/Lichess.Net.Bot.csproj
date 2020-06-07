@@ -33,21 +33,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Discord.Net.Commands, Version=2.2.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Discord.Net.Commands.2.2.0\lib\net461\Discord.Net.Commands.dll</HintPath>
-    </Reference>
-    <Reference Include="Discord.Net.Core, Version=2.2.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Discord.Net.Core.2.2.0\lib\net461\Discord.Net.Core.dll</HintPath>
-    </Reference>
-    <Reference Include="Discord.Net.Rest, Version=2.2.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Discord.Net.Rest.2.2.0\lib\net461\Discord.Net.Rest.dll</HintPath>
-    </Reference>
-    <Reference Include="Discord.Net.Webhook, Version=2.2.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Discord.Net.Webhook.2.2.0\lib\netstandard2.0\Discord.Net.Webhook.dll</HintPath>
-    </Reference>
-    <Reference Include="Discord.Net.WebSocket, Version=2.2.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Discord.Net.WebSocket.2.2.0\lib\net461\Discord.Net.WebSocket.dll</HintPath>
-    </Reference>
     <Reference Include="DSharpPlus, Version=4.0.0.702, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\DSharpPlus.4.0.0-nightly-00702\lib\netstandard2.0\DSharpPlus.dll</HintPath>
     </Reference>
