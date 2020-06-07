@@ -1,12 +1,12 @@
 ﻿using DSharpPlus;
 using DSharpPlus.CommandsNext;
 using Newtonsoft.Json;
-using Sergeant_Spoderman;
 using System.IO;
 using System.Text;
 using System.Threading.Tasks;
+using LichessNetBot.Commands;
 
-namespace SergeantSpoderman
+namespace LichessNetBot
 {
     public class Bot
     {
@@ -39,12 +39,15 @@ namespace SergeantSpoderman
             var commandsConfig = new CommandsNextConfiguration
             {
                 StringPrefixes = new string[] { configJson.Prefix },
-                EnableDms = false,
+                EnableDms = true,
                 EnableMentionPrefix = true,
-                DmHelp = true
+                DmHelp = true,
+                CaseSensitive = false
             };
 
             Commands = Client.UseCommandsNext(commandsConfig);
+
+            Commands.RegisterCommands<ChessCommands>();
 
             await Client.ConnectAsync();
 

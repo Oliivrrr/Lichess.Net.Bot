@@ -1,5 +1,5 @@
 ﻿
-namespace SergeantSpoderman
+namespace LichessNetBot
 {
     class Program
     {

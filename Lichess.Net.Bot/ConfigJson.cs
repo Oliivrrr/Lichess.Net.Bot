@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Sergeant_Spoderman
+namespace LichessNetBot
 {
     public struct ConfigJson
     {
