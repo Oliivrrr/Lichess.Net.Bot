@@ -149,10 +149,9 @@
     <Compile Include="ConfigJson.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Types\ChessGame.cs" />
     <Compile Include="Types\GameStates.cs" />
-    <Compile Include="Types\LichessJSON.cs" />
-    <Compile Include="Types\NetHandler.cs" />
+    <Compile Include="Types\LichessGame.cs" />
+    <Compile Include="NetHandler.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

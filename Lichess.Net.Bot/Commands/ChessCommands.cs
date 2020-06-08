@@ -17,7 +17,7 @@ namespace LichessNetBot.Commands
         [Description("Starts a Chess Game.")]
         public async Task startGame(CommandContext ctx, [Description("Lichess Game Link  eg. lichess.org/I8qK10LA")] string lichessurl)
         {
-            string[] data = NetHandler.getLinkInfo(lichessurl);
+            LichessGame data = NetHandler.getGameData(lichessurl);
             if (data != null)
                 await ctx.Channel.SendMessageAsync("", false, GameStates.newgame(data));
             else

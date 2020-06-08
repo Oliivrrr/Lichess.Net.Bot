@@ -11,7 +11,7 @@ namespace LichessNetBot.Types
 {
     public class NetHandler
     {
-        static public string[] getLinkInfo(string url)
+        static public LichessGame getGameData(string url)
         {
             try
             {
@@ -24,9 +24,7 @@ namespace LichessNetBot.Types
                 HtmlDocument doc = new HtmlDocument();
                 doc.LoadHtml(contents);
 
-                var gameData = JsonConvert.DeserializeObject<Temperatures>(doc.DocumentNode.SelectSingleNode("/html/body/script[4]").InnerText.Split('=')[3]);
-
-                return new string[] { gameData.Data.Challenge.Challenger.Name, gameData.Data.Challenge.TimeControl.Show, gameData.Data.Challenge.Challenger.Rating.ToString(), gameData.Data.Challenge.Rated ? "Rated" : "Casual", url };
+                return JsonConvert.DeserializeObject<LichessGame>(doc.DocumentNode.SelectSingleNode("/html/body/script[4]").InnerText.Split('=')[3]);
             }
             catch (Exception e)
             {
