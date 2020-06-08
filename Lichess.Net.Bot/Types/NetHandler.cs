@@ -1,4 +1,5 @@
 ﻿using HtmlAgilityPack;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,29 +13,26 @@ namespace LichessNetBot.Types
     {
         static public string[] getLinkInfo(string url)
         {
-            string host = string.Empty;
-            string time = string.Empty;
-            string rating = string.Empty;
-            string type = string.Empty;
-
-            var contents = string.Empty;
-            using (var client = new WebClient())
+            try
             {
-                contents = client.DownloadString(url);
+                var contents = string.Empty;
+                using (var client = new WebClient())
+                {
+                    contents = client.DownloadString(url);
+                }
+
+                HtmlDocument doc = new HtmlDocument();
+                doc.LoadHtml(contents);
+
+                var gameData = JsonConvert.DeserializeObject<Temperatures>(doc.DocumentNode.SelectSingleNode("/html/body/script[4]").InnerText.Split('=')[3]);
+
+                return new string[] { gameData.Data.Challenge.Challenger.Name, gameData.Data.Challenge.TimeControl.Show, gameData.Data.Challenge.Challenger.Rating.ToString(), gameData.Data.Challenge.Rated ? "Rated" : "Casual", url };
             }
-
-
-            HtmlDocument doc = new HtmlDocument();
-            doc.LoadHtml(contents);
-
-            host = doc.DocumentNode.SelectNodes("//main/h1/a").FirstOrDefault(x => x.Attributes.Contains("href")).InnerText;
-            time = doc.DocumentNode.SelectSingleNode("//main/div/div[1]/div").InnerText + doc.DocumentNode.SelectSingleNode("//main/div/div[1]/div/span").InnerText; 
-            rating = doc.DocumentNode.SelectSingleNode("//main/h1").InnerText.TrimStart(' ');
-            type = doc.DocumentNode.SelectSingleNode("//main/div/div[2]").InnerText;
-
-
-
-            return new string[] { host, time, rating, type };
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                return null;
+            }
         }
     }
 }

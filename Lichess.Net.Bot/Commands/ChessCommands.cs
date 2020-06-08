@@ -17,10 +17,13 @@ namespace LichessNetBot.Commands
         [Description("Starts a Chess Game.")]
         public async Task startGame(CommandContext ctx, [Description("Lichess Game Link  eg. lichess.org/I8qK10LA")] string lichessurl)
         {
-            if (!lichessurl.Contains("lichess.org/") && lichessurl.Length < 12)
-                await ctx.Channel.SendMessageAsync($"Invalid Lichess Game URL").ConfigureAwait(false);
-
-            await ctx.Channel.SendMessageAsync("", false, GameStates.newgame(NetHandler.getLinkInfo(lichessurl))).ConfigureAwait(false);
+            string[] data = NetHandler.getLinkInfo(lichessurl);
+            if (data != null)
+                await ctx.Channel.SendMessageAsync("", false, GameStates.newgame(data));
+            else
+            {
+                await ctx.Channel.SendMessageAsync("Invalid Lichess Game URL");
+            }
         }
     }
 }
