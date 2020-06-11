@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace LichessNetBot.Types
 {
-    public partial class LichessGame
+    public partial class LichessLobby
     {
         [JsonProperty("socketUrl")]
         public string SocketUrl { get; set; }
