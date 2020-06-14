@@ -155,13 +155,13 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Types\GameStates.cs" />
+    <Compile Include="Types\LichessReplay.cs" />
     <Compile Include="Types\LichessRound.cs" />
     <Compile Include="Types\LichessLobby.cs" />
     <Compile Include="NetHandler.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-    <None Include="config.json" />
     <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

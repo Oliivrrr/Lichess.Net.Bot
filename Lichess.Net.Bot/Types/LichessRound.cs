@@ -176,9 +176,6 @@ namespace LichessNetBot.Types
 
         [JsonProperty("createdAt")]
         public long CreatedAt { get; set; }
-
-        [JsonProperty("winner")]
-        public string Winner { get; set; }
     }
 
     public partial class Status
@@ -199,52 +196,16 @@ namespace LichessNetBot.Types
         public object Name { get; set; }
 
         [JsonProperty("user")]
-        public User User { get; set; }
+        public OpponentUser User { get; set; }
 
         [JsonProperty("rating")]
         public long Rating { get; set; }
-
-        [JsonProperty("provisional")]
-        public bool Provisional { get; set; }
-
-        [JsonProperty("version")]
-        public long Version { get; set; }
-
-        [JsonProperty("spectator")]
-        public bool Spectator { get; set; }
 
         [JsonProperty("onGame")]
         public bool OnGame { get; set; }
     }
 
-    public partial class Player
-    {
-        [JsonProperty("color")]
-        public string Color { get; set; }
-
-        [JsonProperty("name")]
-        public object Name { get; set; }
-
-        [JsonProperty("user")]
-        public User User { get; set; }
-
-        [JsonProperty("rating")]
-        public long Rating { get; set; }
-
-        [JsonProperty("provisional")]
-        public bool Provisional { get; set; }
-
-        [JsonProperty("version")]
-        public long Version { get; set; }
-
-        [JsonProperty("spectator")]
-        public bool Spectator { get; set; }
-
-        [JsonProperty("onGame")]
-        public bool OnGame { get; set; }
-    }
-
-    public partial class User
+    public partial class OpponentUser
     {
         [JsonProperty("id")]
         public string Id { get; set; }
@@ -267,11 +228,11 @@ namespace LichessNetBot.Types
 
     public partial class Perfs
     {
-        [JsonProperty("blitz")]
-        public Blitz Blitz { get; set; }
+        [JsonProperty("rapid")]
+        public Rapid Rapid { get; set; }
     }
 
-    public partial class Blitz
+    public partial class Rapid
     {
         [JsonProperty("games")]
         public long Games { get; set; }
@@ -285,14 +246,59 @@ namespace LichessNetBot.Types
         [JsonProperty("prog")]
         public long Prog { get; set; }
 
-        [JsonProperty("prov")]
-        public bool Prov { get; set; }
+        [JsonProperty("prov", NullValueHandling = NullValueHandling.Ignore)]
+        public bool? Prov { get; set; }
     }
 
     public partial class Profile
     {
         [JsonProperty("country")]
         public string Country { get; set; }
+    }
+
+    public partial class Player
+    {
+        [JsonProperty("color")]
+        public string Color { get; set; }
+
+        [JsonProperty("name")]
+        public object Name { get; set; }
+
+        [JsonProperty("user")]
+        public PlayerUser User { get; set; }
+
+        [JsonProperty("rating")]
+        public long Rating { get; set; }
+
+        [JsonProperty("provisional")]
+        public bool Provisional { get; set; }
+
+        [JsonProperty("version")]
+        public long Version { get; set; }
+
+        [JsonProperty("spectator")]
+        public bool Spectator { get; set; }
+
+        [JsonProperty("onGame")]
+        public bool OnGame { get; set; }
+    }
+
+    public partial class PlayerUser
+    {
+        [JsonProperty("id")]
+        public string Id { get; set; }
+
+        [JsonProperty("username")]
+        public string Username { get; set; }
+
+        [JsonProperty("online")]
+        public bool Online { get; set; }
+
+        [JsonProperty("perfs")]
+        public Perfs Perfs { get; set; }
+
+        [JsonProperty("language")]
+        public string Language { get; set; }
     }
 
     public partial class Pref

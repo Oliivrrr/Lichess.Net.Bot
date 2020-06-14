@@ -15,45 +15,52 @@ namespace LichessNetBot.Commands
         [Command("startgame")]
         public async Task startGame(string lichessurl)
         {
-            bool lobby = true;
-            bool inprogress = true;
-            
+            var msg = await Context.Channel.SendMessageAsync("", false, GameStates.loading().Build());
+
             LichessLobby lobbydata = NetHandler.getLobbyData(lichessurl);
+
+            string[] replaydata = new string[] { };
+
             if (lobbydata == null)
             {
-                await Context.Channel.SendMessageAsync("Invalid Lichess Game URL");
+                await msg.ModifyAsync(x => x.Embed = GameStates.invalid().Build());
                 return;
             }
+            
+            await msg.ModifyAsync(x => x.Embed = GameStates.newgame(lobbydata).Build());
 
-            var msg = await Context.Channel.SendMessageAsync("", false, GameStates.newgame(lobbydata).Build());
-
-            while (lobby)
+            while (true)
             {
                 lobbydata = NetHandler.getLobbyData(lichessurl);
+                if (lobbydata == null)
+                    break;
 
-                if(lobbydata.Data.Challenge.Status == "cancelled")
+                if (lobbydata.Data.Challenge.Status == "canceled")
                 {
-                    lobby = false;
                     await msg.ModifyAsync(x => x.Embed = GameStates.cancelled(lobbydata).Build());
+                    return;
                 }
                 await Task.Delay(7000);
+
             }
 
             var rounddata = NetHandler.getRoundData(lichessurl);
+            await msg.ModifyAsync(x => x.Embed = GameStates.inprogress(rounddata).Build());
 
-            while (inprogress)
+            while (true)
             {
-                rounddata = NetHandler.getRoundData(lichessurl);
+                replaydata = NetHandler.getReplayData(lichessurl);
 
-                if (rounddata == null || rounddata.Data.Game.Status.Name != "started")
+                if (!replaydata[3].Contains("Abort"))
                 {
-                    inprogress = false;
-                    await msg.ModifyAsync(x => x.Embed = GameStates.inprogress(rounddata).Build());
+                    break;
                 }
+
                 await Task.Delay(7000);
             }
-            rounddata = NetHandler.getRoundData(lichessurl);
-            await msg.ModifyAsync(x => x.Embed = GameStates.replay(rounddata).Build());
+
+            await msg.ModifyAsync(x => x.Embed = GameStates.replay(replaydata).Build());
+            return;
         }
     }
 }
